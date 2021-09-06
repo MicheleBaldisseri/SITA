@@ -5,10 +5,34 @@
 </div>
 <div class="sidebar-wrapper">
     <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" [routerLink]="[menuItem.path]">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p>{{menuItem.title}}</p>
+        <li routerLinkActive="active" nav-item>
+            <a class="nav-link" [routerLink]="[menuItems[0].path]">
+                <i class="material-icons">{{menuItems[0].icon}}</i>
+                <p>{{menuItems[0].title}}</p>
+            </a>
+        </li>
+        <li nav-item>
+            <a class="nav-link" style="cursor: pointer !important;" (click)="subMenu = !subMenu">
+                <i class="material-icons">{{menuItems[1].icon}}</i>
+                <p>{{menuItems[1].title}}</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" nav-item>
+            <a class="nav-link" [routerLink]="[menuItems[2].path]" *ngIf="subMenu" style="margin-left: 50px;">
+                <i class="material-icons">{{menuItems[2].icon}}</i>
+                <p>{{menuItems[2].title}}</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" nav-item>
+            <a class="nav-link" [routerLink]="[menuItems[3].path]" *ngIf="subMenu" style="margin-left: 50px;">
+                <i class="material-icons">{{menuItems[3].icon}}</i>
+                <p>{{menuItems[3].title}}</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" nav-item>
+            <a class="nav-link" [routerLink]="[menuItems[4].path]" *ngIf="subMenu" style="margin-left: 50px;">
+                <i class="material-icons">{{menuItems[4].icon}}</i>
+                <p>{{menuItems[4].title}}</p>
             </a>
         </li>
     </ul>

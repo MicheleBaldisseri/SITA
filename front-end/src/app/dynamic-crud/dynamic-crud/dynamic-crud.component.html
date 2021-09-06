@@ -95,16 +95,23 @@
                             <p class="card-category">Make your KPI</p>
                         </div>
                         <div
-                            class="d-flex justify-content-end align-items-center" 
+                            class="d-flex align-items-center"
                             cdkDropList 
+                            cdkDropListOrientation="horizontal" 
                             [cdkDropListData]="trash" 
-                            style="margin-right: 10px; z-index: 5;"
+                            style="z-index: 5; max-height: 40px; margin-top: 5px; margin-bottom: 5px;"
                             (cdkDropListDropped)="dropInUse($event)"
                             >
-                                <p style="margin-bottom: 0;">Clear all</p>
-                                <i class="material-icons" style="font-size: 45px; color: rgb(226, 47, 47); cursor: pointer;" (click)="clear()">close</i>
+                                <strong style="margin-bottom: 0; margin-left: 20px; padding-right: 5px;">Clear all</strong>
+                                <button 
+                                    mat-raised-button type="button" 
+                                    class="btn btn-danger btn-round btn-just-icon"
+                                    (click)="clear()"
+                                >
+                                    <i class="material-icons">cleaning_services</i>
+                                </button>
                         </div>
-                        <div class="card-body" style="position: relative;">
+                        <div class="card-body" style="position: relative; padding-top: 0;">
                             <div
                                 id="kpi-maker-input"
                                 cdkDropList 
@@ -133,13 +140,13 @@
                         </div>
                         <div class="card-body">
                             <p><strong>Algorithm:</strong> {{getAlg()}}</p>
-                            <div class="d-flex justify-content-between">
-                                <button mat-raised-button type="button" class="btn btn-info btn-round btn-just-icon" (click)="save()">
+                            <div>
+                                <button mat-raised-button type="button" matTooltip="Save" class="btn btn-info btn-round btn-just-icon" (click)="save()">
                                     <i class="material-icons">save</i>
                                     <div class="ripple-container"></div>
                                 </button>
-                                <button mat-raised-button type="button" *ngIf="modifingKpi" class="btn btn-danger" (click)="modifingKpi=false; kpiInUse = []">
-                                    <p style="margin-bottom: 0;">Cancel change</p>
+                                <button mat-raised-button type="button" matTooltip="Cancel change" style="margin-left: 10px;" *ngIf="modifingKpi" class="btn btn-danger btn-round btn-just-icon" (click)="modifingKpi=false; kpiInUse = []">
+                                    <i class="material-icons">undo</i>
                                 </button>
                             </div>
                         </div>

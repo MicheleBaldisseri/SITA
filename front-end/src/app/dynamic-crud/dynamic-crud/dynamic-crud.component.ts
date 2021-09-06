@@ -199,8 +199,14 @@ export class DynamicCrudComponent implements OnInit {
         this.kpiInUse.splice(index, 1)
     }
 
+    checkFormula(): boolean {
+        return true;
+    }
+
     //salva la formula appena creata nel KPI maker
     save() {
+
+        this.checkFormula();
 
         if(this.modifingKpi){ //modifica di una kpi
             const dialogRef = this.dialog.open(UpdateDialogComponent, {
