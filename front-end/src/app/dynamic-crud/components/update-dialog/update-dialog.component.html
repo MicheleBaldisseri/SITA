@@ -1,0 +1,24 @@
+<div class="card" style="box-shadow: none;">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Are you sure you want to update this KPI?</h4>
+        <p class="card-category">Take your time</p>
+    </div>
+    
+    <div style="text-align: right; margin-top: 20px;">
+        <button 
+            mat-raised-button type="button" 
+            class="btn btn-danger btn-round"
+            (click)="refuse()"
+        >
+            No
+        </button>
+        <button 
+            mat-raised-button type="button" 
+            class="btn btn-success btn-round" 
+            cdkFocusInitial
+            (click)="confirm()"
+        >
+            Yes
+        </button>
+    </div>
+</div>

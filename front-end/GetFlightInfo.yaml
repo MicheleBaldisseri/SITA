@@ -52,7 +52,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/KpiElemets'
-              examples: {}
+              examples:
+                example1:
+                  value:
+                    - name: Totale voli
+                      label: Totale voli
+                      type: number
+                    - name: Totale atterraggi
+                      label: Totale atterraggi
+                      type: number
+                    - name: Totale decolli
+                      label: Totale voli
+                      type: number
         '500':
           description: Internal Server Error
       operationId: get-mdmService-getAllElements
@@ -174,9 +185,6 @@ components:
           type: string
           minLength: 1
         type:
-          type: string
-          minLength: 1
-        threshold:
           type: string
           minLength: 1
       required:

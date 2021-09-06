@@ -24,10 +24,18 @@
                             <div cdkDropList 
                                 cdkDropListOrientation="horizontal" 
                                 cdkDropListSortingDisabled
-                                [cdkDropListData]="operators"  
+                                [cdkDropListData]="operators"
                                 class="example-list-horizontal" 
-                                (cdkDropListDropped)="drop($event, true)">
-                                <div class="example-box-horizontal" *ngFor="let item of operators; let i = index" cdkDrag [matTooltip]="operatorsName[i]">
+                                (cdkDropListDropped)="drop($event, true)"
+                            >
+                                <div 
+                                    class="example-box-horizontal" 
+                                    *ngFor="let item of operators; let i = index" 
+                                    cdkDrag 
+                                    [matTooltip]="operatorsName[i]"
+                                    (cdkDragStarted)="dragStart()"
+                                    (cdkDragEnded)="dragEnd()"
+                                >
                                     <p id="operators">{{item}}</p>
                                 </div>
                             </div>
@@ -43,25 +51,32 @@
                             <p class="card-category">Drag KPI</p>
                         </div>
                         <div>
-                            <mat-form-field id="filter" appearance="fill">
+                            <mat-form-field id="filter">
                                 <input matInput placeholder="Filter" (input)="searchData()" [(ngModel)]="valueFilter">
                             </mat-form-field>
                             <div class="card-body list-container">
                                 <div class="example-list scrollable" cdkDropList [cdkDropListData]="components" (cdkDropListDropped)="drop($event, true)">
-                                    <div class="example-box" *ngFor="let item of components" cdkDrag [matTooltip]="getLabel(item)">
-                                        <p>{{getLabel(item)}}</p>
+                                    <div 
+                                        class="example-box" 
+                                        *ngFor="let item of components" 
+                                        cdkDrag 
+                                        [matTooltip]="getLabel(item)"
+                                        (cdkDragStarted)="dragStart()"
+                                        (cdkDragEnded)="dragEnd()"
+                                    >
+                                        <p>{{item.name}}</p>
                                         <div>
-                                            <button mat-raised-button type="button" *ngIf="isKpi(item)" class="btn btn-info btn-round btn-just-icon"
+                                            <button mat-raised-button type="button" *ngIf="isKpi(item) && !modifingKpi" class="btn btn-info btn-round btn-just-icon"
                                             (click)="addTresholdKpi(item)">
                                                 <i class="material-icons">addchart</i>
                                                 <div class="ripple-container"></div>
                                             </button>
-                                            <button mat-raised-button type="button" *ngIf="isKpi(item)" class="btn btn-info btn-round btn-just-icon"
+                                            <button mat-raised-button type="button" *ngIf="isKpi(item) && !modifingKpi" class="btn btn-info btn-round btn-just-icon"
                                             (click)="modifyKpi(item)">
                                                 <i class="material-icons">edit</i>
                                                 <div class="ripple-container"></div>
                                             </button>
-                                            <button mat-raised-button type="button" *ngIf="isKpi(item)" class="btn btn-danger btn-round btn-just-icon"
+                                            <button mat-raised-button type="button" *ngIf="isKpi(item) && !modifingKpi" class="btn btn-danger btn-round btn-just-icon"
                                             (click)="deleteKpi(item)">
                                                 <i class="material-icons">close</i>
                                                 <div class="ripple-container"></div>
@@ -79,15 +94,29 @@
                             <h4 class="card-title">KPI maker</h4>
                             <p class="card-category">Make your KPI</p>
                         </div>
+                        <div
+                            class="d-flex justify-content-end align-items-center" 
+                            cdkDropList 
+                            [cdkDropListData]="trash" 
+                            style="margin-right: 10px; z-index: 5;"
+                            (cdkDropListDropped)="dropInUse($event)"
+                            >
+                                <p style="margin-bottom: 0;">Clear all</p>
+                                <i class="material-icons" style="font-size: 45px; color: rgb(226, 47, 47); cursor: pointer;" (click)="clear()">close</i>
+                        </div>
                         <div class="card-body" style="position: relative;">
-                            <div 
+                            <div
+                                id="kpi-maker-input"
                                 cdkDropList 
                                 [cdkDropListData]="kpiInUse" 
                                 class="example-list" 
                                 style="min-height: 300px !important;"
                                 (cdkDropListDropped)="drop($event)">
+
+                                <p id="drag-here" *ngIf="kpiInUse.length === 0">Drop something here</p>
                                 
                                 <div class="example-box" *ngFor="let item of kpiInUse; let i = index" [ngClass]="isOperator(item) ? 'isOperator' : 'isElement'" cdkDrag [matTooltip]="getLabel(item)">
+                                    
                                     <p>{{getLabelMaker(item)}}</p>
                                     
                                     <button 
@@ -101,21 +130,18 @@
                                     </button>
                                 </div>
                             </div>
-                            
-                            <div 
-                                cdkDropList [cdkDropListData]="trash" 
-                                style="position: absolute; top: -60px; right: 30px; z-index: 5;"
-                                (cdkDropListDropped)="dropInUse($event)"
-                            >
-                                <i class="material-icons" style="font-size: 45px; color: #fff; cursor: pointer;" (click)="clear()">close</i>
-                            </div>
                         </div>
                         <div class="card-body">
                             <p><strong>Algorithm:</strong> {{getAlg()}}</p>
-                            <button mat-raised-button type="button" class="btn btn-info btn-round btn-just-icon" (click)="save()">
-                                <i class="material-icons">save</i>
-                                <div class="ripple-container"></div>
-                            </button>
+                            <div class="d-flex justify-content-between">
+                                <button mat-raised-button type="button" class="btn btn-info btn-round btn-just-icon" (click)="save()">
+                                    <i class="material-icons">save</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                                <button mat-raised-button type="button" *ngIf="modifingKpi" class="btn btn-danger" (click)="modifingKpi=false; kpiInUse = []">
+                                    <p style="margin-bottom: 0;">Cancel change</p>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

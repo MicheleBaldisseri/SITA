@@ -15,6 +15,7 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UpdateDialogComponent } from './dynamic-crud/components/update-dialog/update-dialog.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    UpdateDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

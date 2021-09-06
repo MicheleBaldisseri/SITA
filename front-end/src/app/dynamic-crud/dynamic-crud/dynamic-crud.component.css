@@ -155,8 +155,16 @@
       margin: 1.5em 1.5em 0 1.5em;
   }
 
-/*
-  .cdk-drop-list-receiving{
-      background-color: blue;
+  #kpi-maker-input{
+      padding-top: 0;
   }
-  */
+
+ #drag-here{
+     margin-top: 15%;
+     margin-left: 45%;
+ }
+
+ .dragging{
+     background-color: rgb(243, 243, 243);
+     border: 3px dashed black;
+ }
