@@ -145,9 +145,10 @@
                                     <i class="material-icons">save</i>
                                     <div class="ripple-container"></div>
                                 </button>
-                                <button mat-raised-button type="button" matTooltip="Cancel change" style="margin-left: 10px;" *ngIf="modifingKpi" class="btn btn-danger btn-round btn-just-icon" (click)="modifingKpi=false; kpiInUse = []">
+                                <button mat-raised-button type="button" matTooltip="Cancel change" style="margin-left: 10px;" *ngIf="modifingKpi" class="btn btn-danger btn-round btn-just-icon" (click)="modifingKpi=false; kpiInUse = []; wrongExpr=false;">
                                     <i class="material-icons">undo</i>
                                 </button>
+                                <strong *ngIf="wrongExpr" style="margin-left: 10px; color: brown;">Check the syntax of the inserted algorithm</strong>
                             </div>
                         </div>
                     </div>

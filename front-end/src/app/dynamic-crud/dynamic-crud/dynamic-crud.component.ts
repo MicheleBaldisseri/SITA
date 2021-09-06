@@ -41,6 +41,8 @@ export class DynamicCrudComponent implements OnInit {
     modifingKpi: boolean = false;
     //riferiemnto del kpi che si sta modificando
     kpiChanging;
+    //variabile che traccia la correttezza della sintassi dell'espressione di una kpi
+    wrongExpr: boolean = false;
 
     constructor(
         public dialog: MatDialog,
@@ -199,68 +201,96 @@ export class DynamicCrudComponent implements OnInit {
         this.kpiInUse.splice(index, 1)
     }
 
-    checkFormula(): boolean {
-        return true;
+    checkFormula(expr: string): boolean {
+
+        let normal = 0, square = 0, curly = 0;
+        let ops = ['*', '/', '+', '-'];
+        let closedBrackets = [')', ']', '}'];
+        let opsCheck = true;
+
+        for (let i = 0; i < expr.length; i++) {
+            const item = expr[i];
+            
+            if(item === '(') normal++;
+            if(item === '[') square++;
+            if(item === '{') curly++;
+            if(item === ')') normal--;
+            if(item === ']') square--;
+            if(item === '}') curly--;
+
+            if(i>0 && ops.includes(item)){
+                if(ops.includes(expr[i-1]) || ops.includes(expr[i+1]))
+                    opsCheck = false;
+            }
+            if(i != expr.length){
+                if(closedBrackets.includes(expr[i+1]))
+                    opsCheck = false;
+            }
+        }
+        return normal == 0 && square == 0 && curly == 0 && opsCheck;
     }
 
     //salva la formula appena creata nel KPI maker
     save() {
 
-        this.checkFormula();
-
-        if(this.modifingKpi){ //modifica di una kpi
-            const dialogRef = this.dialog.open(UpdateDialogComponent, {
-                width: '500px',
-                height: '230px'
-            });
-        
-            dialogRef.afterClosed().subscribe(toUpdate => {
-                if(toUpdate){
-                    let kpiToUpdate = {...this.kpiChanging}
-                    kpiToUpdate.formula = this.getAlgToSend();
-                    this.kpiService.updateKpi(kpiToUpdate).subscribe(
-                        response => {
-                            //aggiorno in locale
-                            this.kpiChanging.formula = kpiToUpdate.formula;
-                            this.modifingKpi = false;
-                            this.kpiInUse = [];
-                        }, 
-                        error => {
-                            //TODO gestire l'errore mostrando messaggio
-                            console.log(error)
-                        }
-                    );
-                }
-            });
-        }else{ //aggiunta di una kpi
-            const dialogRef = this.dialog.open(SaveDialogComponent, {
-                width: '500px',
-                height: '400px',
-                data: {algo: this.kpiInUse}
-            });
-        
-            dialogRef.afterClosed().subscribe(newKpi => {
-                if(newKpi.isToCreate){
-                    let kpi: Kpi = {
-                        name: newKpi.label,
-                        label: newKpi.label,
-                        formula: this.getAlgToSend(),
-                        threshold: newKpi.threshold
+        if(this.checkFormula(this.getAlgToSend())){ //la formula inserita ha una sintassi corretta
+            this.wrongExpr = false;
+            if(this.modifingKpi){ //modifica di una kpi
+                const dialogRef = this.dialog.open(UpdateDialogComponent, {
+                    width: '500px',
+                    height: '230px'
+                });
+            
+                dialogRef.afterClosed().subscribe(toUpdate => {
+                    if(toUpdate){
+                        let kpiToUpdate = {...this.kpiChanging}
+                        kpiToUpdate.formula = this.getAlgToSend();
+                        this.kpiService.updateKpi(kpiToUpdate).subscribe(
+                            response => {
+                                //aggiorno in locale
+                                this.kpiChanging.formula = kpiToUpdate.formula;
+                                this.modifingKpi = false;
+                                this.kpiInUse = [];
+                            }, 
+                            error => {
+                                //TODO gestire l'errore mostrando messaggio
+                                console.log(error)
+                            }
+                        );
                     }
-                    this.kpiService.addKpi(kpi).subscribe(
-                        response => {
-                            //aggiorno in locale
-                            console.log(kpi)
-                            this.components.unshift(kpi);
-                            this.allComponents.unshift(kpi);
-                        }, 
-                        error => {
-                            //TODO gestire l'errore mostrando messaggio
-                            console.log(error)
+                });
+            }else{ //aggiunta di una kpi
+                const dialogRef = this.dialog.open(SaveDialogComponent, {
+                    width: '500px',
+                    height: '400px',
+                    data: {algo: this.kpiInUse}
+                });
+            
+                dialogRef.afterClosed().subscribe(newKpi => {
+                    if(newKpi.isToCreate){
+                        let kpi: Kpi = {
+                            name: newKpi.label,
+                            label: newKpi.label,
+                            formula: this.getAlgToSend(),
+                            threshold: newKpi.threshold
                         }
-                    );
-                }
-            });
+                        this.kpiService.addKpi(kpi).subscribe(
+                            response => {
+                                //aggiorno in locale
+                                console.log(kpi)
+                                this.components.unshift(kpi);
+                                this.allComponents.unshift(kpi);
+                            }, 
+                            error => {
+                                //TODO gestire l'errore mostrando messaggio
+                                console.log(error)
+                            }
+                        );
+                    }
+                });
+            }
+        }else{//la formula inserita contiene errori di sintassi
+            this.wrongExpr = true;
         }
     }
 
@@ -308,14 +338,4 @@ export class DynamicCrudComponent implements OnInit {
         }
         return item.label;
     }
-
-    checkSing() {
-        /*let operator = this.todo.find((el) => (el == '+' || el == '-' || el == '*' || el == '/'));
-        console.log(operator)
-        if(operator){
-        this.todo.splice(this.todo.indexOf(operator), 1);
-        }*/
-
-    }
-
 }
