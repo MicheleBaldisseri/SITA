@@ -3,7 +3,7 @@
         <img src="/assets/img/logo.svg" />
     </div>
 </div>
-<div class="sidebar-wrapper">
+<div class="sidebar-wrapper" (mouseleave)="closeMenu()">
     <ul class="nav">
         <li routerLinkActive="active" nav-item>
             <a class="nav-link" [routerLink]="[menuItems[0].path]">
