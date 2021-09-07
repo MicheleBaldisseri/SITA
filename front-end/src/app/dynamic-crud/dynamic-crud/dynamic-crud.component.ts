@@ -176,7 +176,14 @@ export class DynamicCrudComponent implements OnInit {
         dialogRef.afterClosed().subscribe(toDelete => {
             if(toDelete){
                 //elimino nel db
-                this.kpiService.deleteKpi(kpi).subscribe();
+                this.kpiService.deleteKpi(kpi).subscribe(
+                    (res) => {
+                        console.log(res);
+                    },
+                    (error) => {
+                        console.log(error);
+                    } 
+                );
                 //elimino localmente
                 for (let i = 0; i < this.components.length; i++) {
                     if (this.components[i].name === kpi.name) {
@@ -202,6 +209,8 @@ export class DynamicCrudComponent implements OnInit {
     }
 
     checkFormula(expr: string): boolean {
+
+        //"Tempo Atteso", "*", "(", "Tempo Schedulato", "-", "Tempo Schedulato", ")"
 
         let normal = 0, square = 0, curly = 0;
         let ops = ['*', '/', '+', '-'];

@@ -24,18 +24,15 @@ export class LoginformComponent implements OnInit {
 
   initForm() {
     this.formGroup = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
   }
 
   login(): void {
     if(this.formGroup.valid){
-      //da sistemare
-      let payload = this.formGroup.value;
-      payload.email = 'email';
-      /**/
-      this.authService.login(payload).subscribe(
+      
+      this.authService.login(this.formGroup.value).subscribe(
         (res) => {
           if (res != null) {
             this.errorMessage = '';
