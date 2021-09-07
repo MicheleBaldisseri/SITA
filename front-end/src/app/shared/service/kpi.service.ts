@@ -19,7 +19,7 @@ export class KpiService {
     
       getAllKpi(): Observable<Kpi[]> {
         //DA TOGLIERE l'aggiunta dell'example per stoplight
-        return this.http.get<Kpi[]>(this.kpiUrl + '?__example=example1', this.httpOptions);
+        return this.http.get<Kpi[]>(this.kpiUrl , this.httpOptions);
       }
     
       addKpi(kpi: Kpi): Observable<Kpi> {
