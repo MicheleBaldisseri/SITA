@@ -1,0 +1,7 @@
+Il progetto SITA necessita:
+	- Docker compose per la creazione dei container Docker
+	- Maven per la creazione dei file .jar delle applicazioni spring
+	- Un database funzionanente PostGreSQL
+All'interno del file .env si possono modificare lo user, le pw, l'indirizzo, le porte e il database a cui si
+deve collegare ogni app del progetto (nel nostro caso 3: app-user, app-mdm, app-kpi)
+All'interno dei file bash sono presenti i comandi per effettuare tutte le azioni di caricamento dei container.

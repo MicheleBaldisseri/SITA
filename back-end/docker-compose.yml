@@ -1,0 +1,63 @@
+version: '3.7'
+
+#################### THIS SECTIONS CONTAINS SOME EXPLANATIONS AND TIPS ON HOW TO WORK WITH DOCKER-COMPOSE ##############
+
+# The password required to access our services are specified inside a .env file in the repository root directory. The env structure is documented in the .env.template file.
+
+# The "ports" mapping exposes the given ports to the HOST. The "expose" mapping only exposes given the ports to other services, which is what we want because only the server talks to the external world
+
+# To get an interactive shell inside a RUNNING container, use:
+# 'docker-compose exec <service-mapping-key> <shell-command>'
+
+########################################################################################################################
+
+services:
+  #db:
+   # image: "postgres"
+   # build:
+   #   context: ./db
+   # restart: always
+   # volumes:
+   #   - ./db-data/:/db/postgres-init.sql
+   # ports:
+   #   - "5432:5432"
+   # environment:
+   #   POSTGRES_DB: sita
+   #   POSTGRES_USER: ${POSTGRES_USER}
+    #  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  app-user:
+    image: service-user:0.0.1-SNAPSHOT
+    build: serviceUser/
+    restart: always
+    ports:
+      - "9000:8080"
+    environment:
+     SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRES_ADDRESS}:${POSTGRES_PORTS}/${POSTGRES_DB_USERS}
+     SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+     SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+     SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  app-mdm:
+    image: service-mdm:0.0.1-SNAPSHOT
+    build: serviceMDM/
+    restart: always
+    ports:
+      - "9001:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRES_ADDRESS}:${POSTGRES_PORTS}/${POSTGRES_DB_MDM}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+
+  app-kpi:
+    image: service-kpi:0.0.1-SNAPSHOT
+    build: serviceKpi/
+    restart: always
+    ports:
+      - "9002:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRES_ADDRESS}:${POSTGRES_PORTS}/${POSTGRES_DB_KPI}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
