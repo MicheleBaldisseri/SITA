@@ -37,7 +37,8 @@ export class NavbarComponent implements OnInit {
     }
 
     openMenu() {
-        if(!this.menuOpen){
+        const menu = document.getElementById('sidebar-important-open');
+        if(!menu){
             const menu = document.getElementById('sidebar-important');
             menu.removeAttribute('sidebar-important');
             menu.id = 'sidebar-important-open';
