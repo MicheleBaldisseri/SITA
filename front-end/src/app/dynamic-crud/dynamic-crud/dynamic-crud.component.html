@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content" style="padding-top: 0;">
     <div class="container-fluid">
         <div cdkDropListGroup>
             <div  class="row">
@@ -54,7 +54,7 @@
                             <mat-form-field id="filter">
                                 <input matInput placeholder="Filter" (input)="searchData()" [(ngModel)]="valueFilter">
                             </mat-form-field>
-                            <div class="card-body list-container">
+                            <div id="blocks-container" class="card-body list-container">
                                 <div class="example-list scrollable" cdkDropList [cdkDropListData]="components" (cdkDropListDropped)="drop($event, true)">
                                     <div 
                                         class="example-box" 
@@ -141,7 +141,7 @@
                         <div class="card-body">
                             <p><strong>Algorithm:</strong> {{getAlg()}}</p>
                             <div>
-                                <button mat-raised-button type="button" matTooltip="Save" class="btn btn-info btn-round btn-just-icon" (click)="save()">
+                                <button mat-raised-button type="button" matTooltip="Save" *ngIf="kpiInUse.length > 0" class="btn btn-info btn-round btn-just-icon" (click)="save()">
                                     <i class="material-icons">save</i>
                                     <div class="ripple-container"></div>
                                 </button>
