@@ -89,6 +89,7 @@ export class DynamicCrudComponent implements OnInit {
     }
 
     isOperator(item): boolean {
+        console.log(typeof item)
         return typeof item === 'string';
     }
 
@@ -241,6 +242,8 @@ export class DynamicCrudComponent implements OnInit {
 
     //salva la formula appena creata nel KPI maker
     save() {
+
+        //this.checkFormula(this.getAlgToSend())
 
         if(true){ //la formula inserita ha una sintassi corretta
             this.wrongExpr = false;

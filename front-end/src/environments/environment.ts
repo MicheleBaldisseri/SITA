@@ -5,7 +5,19 @@
 
 export const environment = {
   production: false,
-  mdmUrl: 'http://0.0.0.0:19001',
-  kpiUrl: 'http://0.0.0.0:19002',
-  userUrl: 'http://0.0.0.0:19000'
+  mdmUrl: ' http://synchost.ns0.it:19001',
+  kpiUrl: 'http://synchost.ns0.it:19002',
+  userUrl: 'http://synchost.ns0.it:19000'
 };
+
+/*
+mdmUrl: ' http://synchost.ns0.it:19001',
+kpiUrl: 'http://synchost.ns0.it:19002',
+userUrl: 'http://synchost.ns0.it:19000'
+*/
+
+/*
+mdmUrl: ' http://127.0.0.1:3100',
+kpiUrl: 'http://127.0.0.1:3100',
+userUrl: 'http://127.0.0.1:3100'
+*/

@@ -22,7 +22,7 @@ paths:
           application/json:
             schema:
               type: object
-              minProperties: 3
+              minProperties: 2
             examples: {}
     parameters: []
   /UserService/signUp:

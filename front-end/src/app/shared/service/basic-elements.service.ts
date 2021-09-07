@@ -18,6 +18,6 @@ export class BasicElementsService {
     constructor(private http: HttpClient) {}
 
     getAllBasicElements(): Observable<BasicElement[]> {
-        return this.http.get<BasicElement[]>(this.apiUrl, this.httpOptions);
+        return this.http.get<BasicElement[]>(this.apiUrl, this.httpOptions); //+ '?__example=example1'
     }
 }
