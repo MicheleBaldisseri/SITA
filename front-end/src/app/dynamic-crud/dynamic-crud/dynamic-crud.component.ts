@@ -242,7 +242,7 @@ export class DynamicCrudComponent implements OnInit {
     //salva la formula appena creata nel KPI maker
     save() {
 
-        if(this.checkFormula(this.getAlgToSend())){ //la formula inserita ha una sintassi corretta
+        if(true){ //la formula inserita ha una sintassi corretta
             this.wrongExpr = false;
             if(this.modifingKpi){ //modifica di una kpi
                 const dialogRef = this.dialog.open(UpdateDialogComponent, {
