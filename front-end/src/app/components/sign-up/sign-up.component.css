@@ -1,3 +1,9 @@
 .fit-height{
     height: 100vh;
 }
+
+#bg-sign-up{
+    background-image: url(./../../../assets/img/sky1.jpg);
+    background-position: center;
+}
+
