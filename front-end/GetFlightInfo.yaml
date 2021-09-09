@@ -161,7 +161,7 @@ components:
         role:
           type: string
           enum:
-            - guest
+            - admin
       required:
         - username
         - email

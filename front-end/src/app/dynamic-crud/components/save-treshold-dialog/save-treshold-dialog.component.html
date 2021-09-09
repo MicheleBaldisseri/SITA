@@ -5,7 +5,6 @@
     </div>
     <div class="card-body">
         <p>{{data.label}}</p>
-        <br>
         <mat-form-field appearance="fill">
             <mat-label>Operator</mat-label>
             <mat-select [(ngModel)]="opSelected">
@@ -21,7 +20,6 @@
             <input matInput type="number" value="{{thresholdFromKpi}}" [(ngModel)]="thresholdFromKpi">
         </mat-form-field>
     </div>
-    <br>
     <div style="text-align: right;">
     <button mat-raised-button type="button" class="btn btn-danger btn-round" (click)="refuse()">Exit</button>
     <button mat-raised-button type="button" class="btn btn-success btn-round" cdkFocusInitial (click)="confirm()">Save</button>

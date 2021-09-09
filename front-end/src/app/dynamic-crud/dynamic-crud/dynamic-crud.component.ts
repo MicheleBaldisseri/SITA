@@ -117,9 +117,10 @@ export class DynamicCrudComponent implements OnInit {
                                     event.previousIndex,
                                     event.currentIndex);
                 
+            }else{
+                moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
             }
         }
-        //moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
 
     dropInUse(event: CdkDragDrop<any[]>) {
@@ -251,28 +252,45 @@ export class DynamicCrudComponent implements OnInit {
 */
     checkFormula(formula): boolean {
         let ops = ['*', '/', '+', '-'];
-        //let brackets = this.operators.filter()
+        let brackets = ['(', '[', '{',')', ']', '}'];
         let queue = [];
-        formula.filter(el => this.operators.includes(el)).forEach(el => {
+
+        formula = formula.filter(el => brackets.includes(el))
+        
+        for (let i = 0; i < formula.length; i++) {
+            const el = formula[i];
+
             if(el === '(' || el === '[' || el === '{') 
                 queue.push(el);
             
             if(el === ')') {
-                if(queue.pop() !== '(')
+                if((queue.length === 0) || (queue[queue.length-1] !== '(')){
                     return false;
+                }
+                else{
+                    queue.pop();
+                }
             }
 
             if(el === ']') {
-                if(queue.pop() !== '[')
+                if(queue.length === 0 || queue[queue.length-1] !== '['){
                     return false;
+                }
+                else{
+                    queue.pop();
+                }
             }
 
             if(el === '}') {
-                if(queue.pop() !== '{')
+                if(queue.length === 0 || queue[queue.length-1] !== '{'){
                     return false;
-            }
-        });
-        return true;
+                }
+                else{
+                    queue.pop();
+                }
+            } 
+        }
+        return queue.length === 0;
     }
 
     //salva la formula appena creata nel KPI maker
