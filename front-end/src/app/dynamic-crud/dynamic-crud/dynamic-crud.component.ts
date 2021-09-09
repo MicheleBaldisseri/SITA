@@ -158,9 +158,9 @@ export class DynamicCrudComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(response => {
-            if(response.isToUpdate){
+            if(response !== undefined && response.isToUpdate){
                 let updatedKpi = {...kpi};
-                updatedKpi.threshold = response.threshold.toString();
+                updatedKpi.threshold = response.operator + response.threshold;
                 //aggiorno nel DB
                 this.kpiService.updateKpi(updatedKpi).subscribe(
                     response => {
@@ -314,7 +314,7 @@ export class DynamicCrudComponent implements OnInit {
                 });
             
                 dialogRef.afterClosed().subscribe(newKpi => {
-                    if(newKpi.isToCreate){
+                    if(newKpi !== undefined && newKpi.isToCreate){
                         let kpi: Kpi = {
                             name: newKpi.label,
                             label: newKpi.label,
@@ -324,7 +324,6 @@ export class DynamicCrudComponent implements OnInit {
                         this.kpiService.addKpi(kpi).subscribe(
                             response => {
                                 //aggiorno in locale
-                                console.log(kpi)
                                 this.components.unshift(kpi);
                                 this.allComponents.unshift(kpi);
                             }, 

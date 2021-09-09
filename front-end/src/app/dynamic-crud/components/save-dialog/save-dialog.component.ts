@@ -10,6 +10,7 @@ export class SaveDialogComponent {
 
     name = '';
     threshold = '';
+    opSelected = '';
 
     constructor(
         public dialogRef: MatDialogRef<SaveDialogComponent>,
@@ -30,7 +31,7 @@ export class SaveDialogComponent {
     }
 
     confirm(): void {
-        this.dialogRef.close({isToCreate: true, label: this.name, threshold: this.threshold});
+        this.dialogRef.close({isToCreate: true, label: this.name, threshold: this.opSelected+this.threshold});
     }
 
     refuse(): void {

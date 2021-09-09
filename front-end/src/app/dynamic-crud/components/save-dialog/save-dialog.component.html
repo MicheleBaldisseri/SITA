@@ -4,19 +4,27 @@
         <p class="card-category">Take your time</p>
     </div>
     <div class="card-body">
-        <p>{{getAlg()}}</p>
-        <br>
+        <b>Algorithm:</b><p>{{getAlg()}}</p>
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput [(ngModel)]="name">
         </mat-form-field>
-
+        <b>Set a threshold</b>
+        <mat-form-field appearance="fill">
+            <mat-label>Operator</mat-label>
+            <mat-select [(ngModel)]="opSelected">
+                <mat-option value="<"> {{'<'}} </mat-option>
+                <mat-option value="<="> {{'<='}} </mat-option>
+                <mat-option value=">"> {{'>'}} </mat-option>
+                <mat-option value=">=">{{'>='}}</mat-option>
+                <mat-option value="=">{{'='}}</mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Threshold</mat-label>
-            <input matInput [(ngModel)]="threshold">
+            <input matInput value="{{threshold}}" [(ngModel)]="threshold">
         </mat-form-field>
     </div>
-    <br>
     <div style="text-align: right;">
     <button mat-raised-button type="button" class="btn btn-danger btn-round" (click)="refuse()">Exit</button>
     <button mat-raised-button type="button" class="btn btn-success btn-round" cdkFocusInitial (click)="confirm()">Save</button>

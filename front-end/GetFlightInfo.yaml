@@ -88,15 +88,15 @@ paths:
                     - name: OTA
                       label: On Time Arrival
                       formula: '''Totale voli'',''/'',''Totale voli in ritardo'''
-                      threshold: '23'
+                      threshold: <23
                     - name: OTD
                       label: On Time Defered
                       formula: '''Totale voli'',''+'',''Voli del giorno'''
-                      threshold: '5'
+                      threshold: '>=5'
                     - name: VNP
                       label: Voli non partiti
                       formula: '''Totale voli'',''/'',''Totale voli partiti'''
-                      threshold: '15'
+                      threshold: '=15'
       operationId: get-kpi-formulaKpi
       description: 'Request to get a list of all Kpi formula '
     post:
@@ -161,7 +161,7 @@ components:
         role:
           type: string
           enum:
-            - admin
+            - guest
       required:
         - username
         - email
