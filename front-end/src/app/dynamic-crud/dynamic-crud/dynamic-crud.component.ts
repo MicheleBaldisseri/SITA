@@ -87,7 +87,7 @@ export class DynamicCrudComponent implements OnInit {
 
     searchData() { //filtro dei components
         this.components = this.allComponents.filter((item) => {
-            return item.label.toLowerCase().includes(this.valueFilter.toLowerCase());
+            return item.name.toLowerCase().includes(this.valueFilter.toLowerCase());
         });
     }
 
@@ -218,38 +218,7 @@ export class DynamicCrudComponent implements OnInit {
     removeItem(index){
         this.kpiInUse.splice(index, 1)
     }
-/*
-    checkFormula(expr: string): boolean {
 
-        //"Tempo Atteso", "*", "(", "Tempo Schedulato", "-", "Tempo Schedulato", ")"
-
-        let normal = 0, square = 0, curly = 0;
-        let ops = ['*', '/', '+', '-'];
-        let closedBrackets = [')', ']', '}'];
-        let opsCheck = true;
-
-        for (let i = 0; i < expr.length; i++) {
-            const item = expr[i];
-            
-            if(item === '(') normal++;
-            if(item === '[') square++;
-            if(item === '{') curly++;
-            if(item === ')') normal--;
-            if(item === ']') square--;
-            if(item === '}') curly--;
-
-            if(i>0 && ops.includes(item)){
-                if(ops.includes(expr[i-1]) || ops.includes(expr[i+1]))
-                    opsCheck = false;
-            }
-            if(i != expr.length){
-                if(closedBrackets.includes(expr[i+1]))
-                    opsCheck = false;
-            }
-        }
-        return normal == 0 && square == 0 && curly == 0 && opsCheck;
-    }
-*/
     checkFormula(formula): boolean {
         let ops = ['*', '/', '+', '-'];
         let brackets = ['(', '[', '{',')', ']', '}'];
