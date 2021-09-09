@@ -43,6 +43,8 @@ export class DynamicCrudComponent implements OnInit {
     kpiChanging;
     //variabile che traccia la correttezza della sintassi dell'espressione di una kpi
     wrongExpr: boolean = false;
+    //variabile che traccia se l'utente loggato è admin o guest
+    isAdmin: boolean = false;
 
     constructor(
         public dialog: MatDialog,
@@ -51,7 +53,13 @@ export class DynamicCrudComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.isAdminFn();
         this.initElementsList() //lista di kpis e basic elements
+    }
+
+    isAdminFn() {
+        let user = JSON.parse(localStorage.getItem('User') as string);
+        this.isAdmin = user.role === 'admin' ? true : false;
     }
 
     initElementsList(): void {
@@ -104,15 +112,14 @@ export class DynamicCrudComponent implements OnInit {
     drop(event: CdkDragDrop<any[]>, ignore?: boolean) {
         if(!ignore){
             if (event.previousContainer != event.container) {
-            // moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-            // } else {
-                    copyArrayItem(event.previousContainer.data,
+                copyArrayItem(event.previousContainer.data,
                                     event.container.data,
                                     event.previousIndex,
                                     event.currentIndex);
-                }
+                
+            }
         }
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        //moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
 
     dropInUse(event: CdkDragDrop<any[]>) {
@@ -123,12 +130,14 @@ export class DynamicCrudComponent implements OnInit {
                             event.currentIndex);
         }
     }
-    //refil($event)
+    
+    /*
     refil(event: CdkDragDrop<any[]>) {
         if (event.previousContainer != event.container) {
         event.previousContainer.data.push(JSON.parse(JSON.stringify(event.container.data[event.currentIndex])))
         }
-    }
+    }*/
+
     //modifica di un KPI
     modifyKpi(kpi: Kpi){
         this.kpiChanging = kpi;
@@ -347,7 +356,7 @@ export class DynamicCrudComponent implements OnInit {
     }
 
     getAlg(): string { //costruisce la formula sottoforma di string da visualizzare
-        let alg = '[  ';
+        let alg = '    ';
         this.kpiInUse.forEach(el => {
             if(typeof el === 'string'){
                 alg += '"' + el + '"';
@@ -357,7 +366,7 @@ export class DynamicCrudComponent implements OnInit {
             alg += ', ';
         })
         alg = alg.slice(0, -2);
-        return alg += ']';
+        return alg;
     }
 
     getLabel(item): string {

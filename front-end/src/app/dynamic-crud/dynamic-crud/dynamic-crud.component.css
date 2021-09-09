@@ -35,7 +35,7 @@
     justify-content: space-between;
     box-sizing: border-box;
     cursor: move;
-    background-color: #ffecc271;
+    /*background-color: #ffecc271;*/
     font-size: 14px;
     flex-grow: 1;
     flex-basis: 0;
@@ -151,6 +151,14 @@
     background-color: #ffecc23b !important;
   }
 
+  .isKpi{
+    background-color: #ffecc271;
+  }
+
+  .isBe{
+    background-color: #ffd2ae71;
+  }
+
   #filter{
       margin: 1.5em 1.5em 0 1.5em;
   }
@@ -160,8 +168,8 @@
   }
 
  #drag-here{
-     margin-top: 15%;
-     margin-left: 45%;
+     margin-top: 10%;
+     margin-left: 40%;
  }
 
  .dragging{

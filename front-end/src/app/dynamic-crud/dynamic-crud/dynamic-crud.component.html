@@ -59,6 +59,7 @@
                                     <div 
                                         class="example-box" 
                                         *ngFor="let item of components" 
+                                        [ngClass]="isKpi(item) ? 'isKpi' : 'isBe'"
                                         cdkDrag 
                                         [matTooltip]="getLabel(item)"
                                         (cdkDragStarted)="dragStart()"
@@ -66,17 +67,22 @@
                                     >
                                         <p>{{item.name}}</p>
                                         <div>
-                                            <button mat-raised-button type="button" *ngIf="isKpi(item) && !modifingKpi" class="btn btn-info btn-round btn-just-icon"
+                                            <button mat-raised-button type="button" *ngIf="!isAdmin && isKpi(item)" class="btn btn-info btn-round btn-just-icon"
+                                            (click)="modifyKpi(item)">
+                                                <i class="material-icons">visibility</i>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                            <button mat-raised-button type="button" *ngIf="isAdmin && isKpi(item) && !modifingKpi" class="btn btn-info btn-round btn-just-icon"
                                             (click)="addTresholdKpi(item)">
                                                 <i class="material-icons">addchart</i>
                                                 <div class="ripple-container"></div>
                                             </button>
-                                            <button mat-raised-button type="button" *ngIf="isKpi(item) && !modifingKpi" class="btn btn-info btn-round btn-just-icon"
+                                            <button mat-raised-button type="button" *ngIf="isAdmin && isKpi(item) && !modifingKpi" class="btn btn-info btn-round btn-just-icon"
                                             (click)="modifyKpi(item)">
                                                 <i class="material-icons">edit</i>
                                                 <div class="ripple-container"></div>
                                             </button>
-                                            <button mat-raised-button type="button" *ngIf="isKpi(item) && !modifingKpi" class="btn btn-danger btn-round btn-just-icon"
+                                            <button mat-raised-button type="button" *ngIf="isAdmin && isKpi(item) && !modifingKpi" class="btn btn-danger btn-round btn-just-icon"
                                             (click)="deleteKpi(item)">
                                                 <i class="material-icons">close</i>
                                                 <div class="ripple-container"></div>
@@ -100,7 +106,7 @@
                             cdkDropListOrientation="horizontal" 
                             [cdkDropListData]="trash" 
                             style="z-index: 5; max-height: 40px; margin-top: 5px; margin-bottom: 5px;"
-                            (cdkDropListDropped)="dropInUse($event)"
+                            (cdkDropListDropped)="drop($event)"
                             >
                                 <strong style="margin-bottom: 0; margin-left: 20px; padding-right: 5px;">Clear all</strong>
                                 <button 
@@ -122,7 +128,11 @@
 
                                 <p id="drag-here" *ngIf="kpiInUse.length === 0">Drop something here</p>
                                 
-                                <div class="example-box" *ngFor="let item of kpiInUse; let i = index" [ngClass]="operators.includes(item) ? 'isOperator' : 'isElement'" cdkDrag [matTooltip]="getLabel(item)">
+                                <div 
+                                    class="example-box" 
+                                    *ngFor="let item of kpiInUse; let i = index" 
+                                    [ngClass]="operators.includes(item) ? 'isOperator' : isKpi(item) ? 'isKpi' : 'isBe'" 
+                                    cdkDrag [matTooltip]="getLabel(item)">
                                     
                                     <p>{{getLabelMaker(item)}}</p>
                                     
@@ -139,13 +149,18 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p><strong>Algorithm:</strong> {{getAlg()}}</p>
+                            <p>
+                                <b>Algorithm: [</b> 
+                                    <strong *ngIf="kpiInUse.length == 0">Formula that you are creating</strong>
+                                    {{getAlg()}} 
+                                <b>]</b>
+                            </p>
                             <div>
-                                <button mat-raised-button type="button" matTooltip="Save" *ngIf="kpiInUse.length > 0" class="btn btn-info btn-round btn-just-icon" (click)="save()">
+                                <button mat-raised-button type="button" matTooltip="Save" *ngIf="isAdmin && kpiInUse.length > 0" class="btn btn-info btn-round btn-just-icon" (click)="save()">
                                     <i class="material-icons">save</i>
                                     <div class="ripple-container"></div>
                                 </button>
-                                <button mat-raised-button type="button" matTooltip="Cancel change" style="margin-left: 10px;" *ngIf="modifingKpi" class="btn btn-danger btn-round btn-just-icon" (click)="modifingKpi=false; kpiInUse = []; wrongExpr=false;">
+                                <button mat-raised-button type="button" matTooltip="Cancel change" style="margin-left: 10px;" *ngIf="isAdmin && modifingKpi" class="btn btn-danger btn-round btn-just-icon" (click)="modifingKpi=false; kpiInUse = []; wrongExpr=false;">
                                     <i class="material-icons">undo</i>
                                 </button>
                                 <strong *ngIf="wrongExpr" style="margin-left: 10px; color: brown;">Check the syntax of the inserted algorithm</strong>
