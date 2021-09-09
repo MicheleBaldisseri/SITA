@@ -208,7 +208,7 @@ export class DynamicCrudComponent implements OnInit {
     removeItem(index){
         this.kpiInUse.splice(index, 1)
     }
-
+/*
     checkFormula(expr: string): boolean {
 
         //"Tempo Atteso", "*", "(", "Tempo Schedulato", "-", "Tempo Schedulato", ")"
@@ -239,13 +239,39 @@ export class DynamicCrudComponent implements OnInit {
         }
         return normal == 0 && square == 0 && curly == 0 && opsCheck;
     }
+*/
+    checkFormula(formula): boolean {
+        let ops = ['*', '/', '+', '-'];
+        //let brackets = this.operators.filter()
+        let queue = [];
+        formula.filter(el => this.operators.includes(el)).forEach(el => {
+            if(el === '(' || el === '[' || el === '{') 
+                queue.push(el);
+            
+            if(el === ')') {
+                if(queue.pop() !== '(')
+                    return false;
+            }
+
+            if(el === ']') {
+                if(queue.pop() !== '[')
+                    return false;
+            }
+
+            if(el === '}') {
+                if(queue.pop() !== '{')
+                    return false;
+            }
+        });
+        return true;
+    }
 
     //salva la formula appena creata nel KPI maker
     save() {
 
         //this.checkFormula(this.getAlgToSend())
 
-        if(true){ //la formula inserita ha una sintassi corretta
+        if(this.checkFormula([...this.kpiInUse])){ //la formula inserita ha una sintassi corretta
             this.wrongExpr = false;
             if(this.modifingKpi){ //modifica di una kpi
                 const dialogRef = this.dialog.open(UpdateDialogComponent, {
