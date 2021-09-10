@@ -2,15 +2,15 @@
 
   <p>{{errorMessage | uppercase}}</p> 
 
-  <mat-form-field appearance="outline">
+  <mat-form-field style="width: 80%; margin-left: 10%; height: 3em;">
     <input matInput placeholder="E-mail" formControlName="email"/>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field style="width: 80%; margin-left: 10%; height: 3em;">
     <input matInput placeholder="Password" type="password" formControlName="password"/>
   </mat-form-field>
 
-  <p>Non hai ancora un account? <a routerLink="/signup">Registrati</a></p>
+  <p style="font-size: 0.9em; margin-bottom: 0; margin-top: 10px;">Don't have an account yet? <a routerLink="/signup">Signup</a></p>
 
   <!--<button
     mat-raised-button

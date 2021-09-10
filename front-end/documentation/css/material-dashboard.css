@@ -8854,37 +8854,37 @@ button:focus {
   .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card.bg-primary,
   .card.card-rotate.bg-primary .front,
   .card.card-rotate.bg-primary .back {
-    background: linear-gradient(60deg, #ab47bc, #8e24aa); }
+    background: linear-gradient(265deg, #ab47bc, #8e24aa); }
   .card .card-header-info .card-icon,
   .card .card-header-info .card-text,
   .card .card-header-info:not(.card-header-icon):not(.card-header-text), .card.bg-info,
   .card.card-rotate.bg-info .front,
   .card.card-rotate.bg-info .back {
-    background: linear-gradient(60deg, #26c6da, #00acc1); }
+    background: linear-gradient(265deg, #26c6da, #00acc1); }
   .card .card-header-success .card-icon,
   .card .card-header-success .card-text,
   .card .card-header-success:not(.card-header-icon):not(.card-header-text), .card.bg-success,
   .card.card-rotate.bg-success .front,
   .card.card-rotate.bg-success .back {
-    background: linear-gradient(60deg, #66bb6a, #43a047); }
+    background: linear-gradient(265deg, #66bb6a, #43a047); }
   .card .card-header-warning .card-icon,
   .card .card-header-warning .card-text,
   .card .card-header-warning:not(.card-header-icon):not(.card-header-text), .card.bg-warning,
   .card.card-rotate.bg-warning .front,
   .card.card-rotate.bg-warning .back {
-    background: linear-gradient(60deg, #ffa726, #fb8c00); }
+    background: linear-gradient(265deg, #ffa726, #fb8c00); }
   .card .card-header-danger .card-icon,
   .card .card-header-danger .card-text,
   .card .card-header-danger:not(.card-header-icon):not(.card-header-text), .card.bg-danger,
   .card.card-rotate.bg-danger .front,
   .card.card-rotate.bg-danger .back {
-    background: linear-gradient(60deg, #ef5350, #e53935); }
+    background: linear-gradient(265deg, #ef5350, #e53935); }
   .card .card-header-rose .card-icon,
   .card .card-header-rose .card-text,
   .card .card-header-rose:not(.card-header-icon):not(.card-header-text), .card.bg-rose,
   .card.card-rotate.bg-rose .front,
   .card.card-rotate.bg-rose .back {
-    background: linear-gradient(60deg, #ec407a, #d81b60); }
+    background: linear-gradient(265deg, #ec407a, #d81b60); }
   .card .card-header-primary .card-icon,
   .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
   .card .card-header-primary .card-text {
@@ -14044,7 +14044,7 @@ a[aria-expanded="true"] .caret,
   /* For Safari 5.1 to 6.0 */
   /* For Opera 11.1 to 12.0 */
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(60deg, rgba(225, 190, 231, 0.56), rgba(186, 104, 200, 0.95));
+  background: linear-gradient(265deg, rgba(225, 190, 231, 0.56), rgba(186, 104, 200, 0.95));
   /* Standard syntax */ }
 
 .full-page[filter-color="purple"].lock-page .form-group .form-control, .full-page[filter-color="primary"].lock-page .form-group .form-control {
@@ -14057,7 +14057,7 @@ a[aria-expanded="true"] .caret,
   /* For Safari 5.1 to 6.0 */
   /* For Opera 11.1 to 12.0 */
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(60deg, rgba(178, 235, 242, 0.56), rgba(77, 208, 225, 0.95));
+  background: linear-gradient(265deg, rgba(178, 235, 242, 0.56), rgba(77, 208, 225, 0.95));
   /* Standard syntax */ }
 
 .full-page[filter-color="blue"].lock-page .form-group .form-control, .full-page[filter-color="info"].lock-page .form-group .form-control {
@@ -14070,7 +14070,7 @@ a[aria-expanded="true"] .caret,
   /* For Safari 5.1 to 6.0 */
   /* For Opera 11.1 to 12.0 */
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(60deg, rgba(165, 214, 167, 0.56), rgba(102, 187, 106, 0.95));
+  background: linear-gradient(265deg, rgba(165, 214, 167, 0.56), rgba(102, 187, 106, 0.95));
   /* Standard syntax */ }
 
 .full-page[filter-color="green"].lock-page .form-group .form-control, .full-page[filter-color="success"].lock-page .form-group .form-control {
@@ -14083,7 +14083,7 @@ a[aria-expanded="true"] .caret,
   /* For Safari 5.1 to 6.0 */
   /* For Opera 11.1 to 12.0 */
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(60deg, rgba(255, 224, 178, 0.56), rgba(255, 183, 77, 0.95));
+  background: linear-gradient(265deg, rgba(255, 224, 178, 0.56), rgba(255, 183, 77, 0.95));
   /* Standard syntax */ }
 
 .full-page[filter-color="orange"].lock-page .form-group .form-control, .full-page[filter-color="warning"].lock-page .form-group .form-control {
@@ -14096,7 +14096,7 @@ a[aria-expanded="true"] .caret,
   /* For Safari 5.1 to 6.0 */
   /* For Opera 11.1 to 12.0 */
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(60deg, rgba(239, 154, 154, 0.56), rgba(239, 83, 80, 0.95));
+  background: linear-gradient(265deg, rgba(239, 154, 154, 0.56), rgba(239, 83, 80, 0.95));
   /* Standard syntax */ }
 
 .full-page[filter-color="red"].lock-page .form-group .form-control, .full-page[filter-color="danger"].lock-page .form-group .form-control {
@@ -14109,7 +14109,7 @@ a[aria-expanded="true"] .caret,
   /* For Safari 5.1 to 6.0 */
   /* For Opera 11.1 to 12.0 */
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(60deg, rgba(248, 187, 208, 0.56), rgba(240, 98, 146, 0.95));
+  background: linear-gradient(265deg, rgba(248, 187, 208, 0.56), rgba(240, 98, 146, 0.95));
   /* Standard syntax */ }
 
 .full-page[filter-color="rose"].lock-page .form-group .form-control {
