@@ -65,7 +65,7 @@
                                         (cdkDragStarted)="dragStart()"
                                         (cdkDragEnded)="dragEnd()"
                                     >
-                                        <p>{{item.name}}</p>
+                                        <p>{{item.label}}</p>
                                         <div>
                                             <button mat-raised-button type="button" *ngIf="!isAdmin && isKpi(item)" class="btn btn-info btn-round btn-just-icon"
                                             (click)="modifyKpi(item)">

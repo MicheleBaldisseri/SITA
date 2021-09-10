@@ -87,7 +87,7 @@ export class DynamicCrudComponent implements OnInit {
 
     searchData() { //filtro dei components
         this.components = this.allComponents.filter((item) => {
-            return item.name.toLowerCase().includes(this.valueFilter.toLowerCase());
+            return item.label.toLowerCase().includes(this.valueFilter.toLowerCase());
         });
     }
 
@@ -362,7 +362,7 @@ export class DynamicCrudComponent implements OnInit {
             }
             else return item;
         }
-        return item.label;
+        return item.name;
     }
 
     getLabelMaker(item): string {

@@ -158,7 +158,7 @@ components:
         password:
           type: string
           minLength: 1
-        role:
+        roles:
           type: string
           enum:
             - admin
@@ -166,7 +166,7 @@ components:
         - username
         - email
         - password
-        - role
+        - roles
     KpiElemets:
       description: Model for the native Kpi Elements
       type: object
