@@ -59,7 +59,7 @@ export class DynamicCrudComponent implements OnInit {
 
     isAdminFn() {
         let user = JSON.parse(localStorage.getItem('User') as string);
-        this.isAdmin = user.role === 'admin' ? true : false;
+        this.isAdmin = user.roles === 'admin' ? true : false;
     }
 
     initElementsList(): void {
