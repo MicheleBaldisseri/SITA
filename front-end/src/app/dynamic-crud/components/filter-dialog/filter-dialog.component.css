@@ -1,0 +1,13 @@
+::ng-deep.mat-dialog-container {
+    overflow: hidden;
+}
+
+#removeFilter{
+    margin-left: 10px;
+    border: none;
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    line-height: 2px;
+    height: 20px;
+}

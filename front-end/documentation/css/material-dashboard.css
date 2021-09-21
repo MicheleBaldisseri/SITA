@@ -8464,13 +8464,13 @@ button:focus {
     border-radius: 30px; }
   .btn.btn-fab, .btn.btn-just-icon {
     font-size: 24px;
-    height: 41px;
-    min-width: 41px;
-    width: 41px;
+    height: 35px;
+    min-width: 35px;
+    width: 35px;
     padding: 0;
     overflow: hidden;
     position: relative;
-    line-height: 41px; }
+    line-height: 35px; }
     .btn.btn-fab.btn-round, .btn.btn-just-icon.btn-round {
       border-radius: 50%; }
     .btn-group-sm .btn.btn-fab, .btn.btn-fab.btn-sm, .btn-group-sm > .btn.btn-fab, .btn.btn-fab.btn-fab-mini, .btn-group-sm .btn.btn-just-icon, .btn.btn-just-icon.btn-sm, .btn-group-sm > .btn.btn-just-icon, .btn.btn-just-icon.btn-fab-mini {
@@ -8513,14 +8513,14 @@ button:focus {
       left: 0;
       top: 0;
       height: 100%;
-      line-height: 41px;
+      line-height: 35px;
       font-size: 20px; }
 
 .btn-just-icon.btn-lg, .btn-group-lg > .btn-just-icon.btn {
   font-size: 24px;
-  height: 41px;
-  min-width: 41px;
-  width: 41px; }
+  height: 35px;
+  min-width: 35px;
+  width: 35px; }
 
 .input-group-btn > .btn {
   border: 0; }

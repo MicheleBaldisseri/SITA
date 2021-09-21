@@ -66,7 +66,7 @@
                                         (cdkDragEnded)="dragEnd()"
                                     >
                                         <p>{{item.label}}</p>
-                                        <div>
+                                        <div id="kpi-buttons">
                                             <button mat-raised-button type="button" *ngIf="!isAdmin && isKpi(item)" class="btn btn-info btn-round btn-just-icon"
                                             (click)="modifyKpi(item)">
                                                 <i class="material-icons">visibility</i>
@@ -135,16 +135,84 @@
                                     cdkDrag [matTooltip]="getLabel(item)">
                                     
                                     <p>{{getLabelMaker(item)}}</p>
-                                    
-                                    <button 
-                                        mat-raised-button 
-                                        type="button" 
-                                        class="btn btn-danger btn-round btn-just-icon"
-                                        (click)="removeItem(i)"
-                                    >
-                                        <i class="material-icons">close</i>
-                                        <div class="ripple-container"></div>
-                                    </button>
+
+                                    <div>
+                                        <button 
+                                            mat-raised-button 
+                                            type="button"
+                                            class="btn btn-info btn-round btn-just-icon" 
+                                            placement="left"
+                                            [ngbPopover]="popContent"
+                                            popoverTitle="Add filters"
+                                        >
+                                         <i class="material-icons">filter_list</i>
+                                        </button>
+
+                                        <ng-template #popContent>
+                                            <button 
+                                                    mat-raised-button 
+                                                    color="primary"
+                                                    [matBadge]="getNumberOfBadges(item)" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "getHiddenBadge(item)"
+                                                    (click)="openFilterModal(item, i)"
+                                                    style="padding: 0;"
+                                            >
+                                                    By value
+                                            </button>
+                                            <!--
+                                            <div class="d-flex justify-content-between" style="width: 150px;">
+                                                <button 
+                                                    mat-raised-button 
+                                                    color="primary"
+                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
+                                                    (click)="openFilterModal(item)"
+                                                    style="padding: 0;"
+                                                >
+                                                    By value
+                                                </button>
+                                                <button 
+                                                    mat-raised-button 
+                                                    color="primary"
+                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
+                                                    (click)="openFilterModal(item)"
+                                                    style="padding: 0;"
+                                                >
+                                                    By value
+                                                </button>
+                                            </div>
+                                            <div class="d-flex justify-content-between" style="margin-top: 20px;">
+                                                <button 
+                                                    mat-raised-button 
+                                                    color="primary"
+                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
+                                                    (click)="openFilterModal(item)"
+                                                    style="padding: 0;"
+                                                >
+                                                    By value
+                                                </button>
+                                                <button 
+                                                    mat-raised-button 
+                                                    color="primary"
+                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
+                                                    (click)="openFilterModal(item)"
+                                                    style="padding: 0;"
+                                                >
+                                                    By value
+                                                </button>
+                                            </div>
+                                            -->
+                                        </ng-template>
+                                        
+                                        
+                                        <button 
+                                            mat-raised-button 
+                                            type="button" 
+                                            class="btn btn-danger btn-round btn-just-icon"
+                                            (click)="removeItem(i)"
+                                        >
+                                            <i class="material-icons">close</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

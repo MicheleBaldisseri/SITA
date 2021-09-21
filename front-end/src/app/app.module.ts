@@ -19,6 +19,7 @@ import { UpdateDialogComponent } from './dynamic-crud/components/update-dialog/u
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LandingPage2Component } from './landing-page2/landing-page2.component';
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,

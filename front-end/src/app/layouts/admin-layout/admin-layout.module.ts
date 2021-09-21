@@ -23,6 +23,10 @@ import { DynamicCrudComponent } from 'app/dynamic-crud/dynamic-crud/dynamic-crud
 import { SaveDialogComponent } from 'app/dynamic-crud/components/save-dialog/save-dialog.component';
 import { SaveTresholdDialogComponent } from 'app/dynamic-crud/components/save-treshold-dialog/save-treshold-dialog.component';
 import { DeleteDialogComponent } from 'app/dynamic-crud/components/delete-dialog/delete-dialog.component';
+import { FilterDialogComponent } from 'app/dynamic-crud/components/filter-dialog/filter-dialog.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -36,8 +40,11 @@ import { DeleteDialogComponent } from 'app/dynamic-crud/components/delete-dialog
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatDividerModule,
     MatDialogModule,
-    DragDropModule
+    MatBadgeModule,
+    DragDropModule,
+    NgbModule
   ],
   declarations: [
     DashboardComponent,
@@ -51,7 +58,8 @@ import { DeleteDialogComponent } from 'app/dynamic-crud/components/delete-dialog
     DynamicCrudComponent,
     SaveDialogComponent,
     SaveTresholdDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    FilterDialogComponent
   ],
   entryComponents: [SaveDialogComponent, SaveTresholdDialogComponent]
 })

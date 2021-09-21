@@ -9,6 +9,7 @@ import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog
 import { SaveDialogComponent } from '../components/save-dialog/save-dialog.component';
 import { SaveTresholdDialogComponent } from '../components/save-treshold-dialog/save-treshold-dialog.component';
 import { UpdateDialogComponent } from '../components/update-dialog/update-dialog.component';
+import { FilterDialogComponent } from '../components/filter-dialog/filter-dialog.component';
 
 @Component({
   selector: 'app-dynamic-crud',
@@ -28,7 +29,7 @@ export class DynamicCrudComponent implements OnInit {
             'Division','Open bracket','Closed bracket','Open square bracket',
             'Closed square bracket','Open curly bracket','Closed curly bracket'];
     
-    kpiInUse = []; //elements all'interno del KPI maker
+    kpiInUse: any[] = []; //elements all'interno del KPI maker
     trash = [];
     
     //components = basic elements + kpis
@@ -216,6 +217,8 @@ export class DynamicCrudComponent implements OnInit {
     }
     //rimuove un oggetto dal KPI maker
     removeItem(index){
+        if(this.kpiInUse[index].hasOwnProperty('filters'))
+            delete this.kpiInUse[index].filters
         this.kpiInUse.splice(index, 1)
     }
 
@@ -370,5 +373,44 @@ export class DynamicCrudComponent implements OnInit {
             return item;
         }
         return item.label;
+    }
+
+    openFilterModal(item, i): void {
+        
+        const dialogRef = this.dialog.open(FilterDialogComponent, {
+            width: '500px',
+            height: 'fit-content',
+            data: item
+        });
+
+        dialogRef.afterClosed().subscribe(toAddFilter => {
+            if(toAddFilter){
+                if(!this.kpiInUse[i].hasOwnProperty('filters')){
+                    this.kpiInUse[i].filters = {
+                        byValue: ''
+                    };
+                }
+                this.kpiInUse[i].filters.byValue = toAddFilter.value;
+            }
+        });
+    }
+
+    getNumberOfBadges(item){
+        let n: any = 0;
+        if(item.hasOwnProperty('filters')){
+            n = Object.keys(item.filters);
+            n = n.length;
+        }
+        return n;
+    }
+
+    getHiddenBadge(item){
+        if(item.hasOwnProperty('filters')){
+            if(item.filters.hasOwnProperty('byValue')){
+                if(item.filters.byValue !== '') return false;
+            }
+        }
+        return true;
+       //return !item.hasOwnProperty('filters');
     }
 }

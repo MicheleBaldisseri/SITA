@@ -11,6 +11,7 @@ import { AnimatedBackgroundComponent } from './login/animated-background/animate
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { AnimatedBackground2Component } from './login/animated-background 2/animated-background-2.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignUpFormComponent } from './sign-up/sign-up-form/sign-up-form.component';
@@ -23,6 +24,7 @@ import { SignUpFormComponent } from './sign-up/sign-up-form/sign-up-form.compone
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule
   ],
   declarations: [
     FooterComponent,

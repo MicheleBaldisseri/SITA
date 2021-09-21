@@ -1,0 +1,55 @@
+<div class="card" style="box-shadow: none; margin-bottom: 0;">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Filter by value</h4>
+    </div>
+
+    <p style="margin-top: 20px;"><b>Label:</b> {{data.label}}</p>
+
+    <div class="d-flex align-items-center justify-content-between">
+        <b>Filter by:</b>
+
+        <mat-form-field style="width: 100px;">
+            <mat-label>Operator</mat-label>
+            <mat-select [(ngModel)]="opSelected">
+                <mat-option value="<"> {{'<'}} </mat-option>
+                <mat-option value="<="> {{'<='}} </mat-option>
+                <mat-option value=">"> {{'>'}} </mat-option>
+                <mat-option value=">=">{{'>='}}</mat-option>
+                <mat-option value="=">{{'='}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="width: 250px;">
+            <input matInput placeholder="Value" [(ngModel)]="value">
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="data.hasOwnProperty('filters') && data.filters.hasOwnProperty('byValue') && data.filters.byValue !== ''" >
+        <mat-divider></mat-divider>
+        <div class="d-flex" style="margin-top: 10px">
+            <b style="padding-right: 8px;">Previously inserted filter:</b>
+            <p>{{data.filters.byValue}}</p>
+
+            <button id="removeFilter" (click)="removeFilter()">x</button>
+        </div>
+    </div>
+    
+    <div style="text-align: right;">
+        <button 
+            mat-raised-button type="button" 
+            class="btn btn-danger btn-round"
+            (click)="refuse()"
+        >
+            Abort
+        </button>
+        <button 
+            mat-raised-button type="button" 
+            class="btn btn-success btn-round" 
+            cdkFocusInitial
+            (click)="confirm()"
+        >
+            Confirm
+        </button>
+    </div>
+</div>
+
