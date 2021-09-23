@@ -10,6 +10,8 @@ import { SaveDialogComponent } from '../components/save-dialog/save-dialog.compo
 import { SaveTresholdDialogComponent } from '../components/save-treshold-dialog/save-treshold-dialog.component';
 import { UpdateDialogComponent } from '../components/update-dialog/update-dialog.component';
 import { FilterDialogComponent } from '../components/filter-dialog/filter-dialog.component';
+import { FilterGroupByDialogComponent } from '../components/filter-groupBy-dialog/filter-groupBy-dialog.component';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-dynamic-crud',
@@ -30,6 +32,7 @@ export class DynamicCrudComponent implements OnInit {
             'Closed square bracket','Open curly bracket','Closed curly bracket'];
     
     kpiInUse: any[] = []; //elements all'interno del KPI maker
+    kpiWithFilters: any[] = []; //elements all'interno della lista dei filters attivi
     trash = [];
     
     //components = basic elements + kpis
@@ -117,7 +120,6 @@ export class DynamicCrudComponent implements OnInit {
                                     event.container.data,
                                     event.previousIndex,
                                     event.currentIndex);
-                
             }else{
                 moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
             }
@@ -214,12 +216,19 @@ export class DynamicCrudComponent implements OnInit {
     //pulisce il KPI maker
     clear() {
         this.kpiInUse = [];
+        this.kpiWithFilters = [];
     }
     //rimuove un oggetto dal KPI maker
-    removeItem(index){
-        if(this.kpiInUse[index].hasOwnProperty('filters'))
-            delete this.kpiInUse[index].filters
-        this.kpiInUse.splice(index, 1)
+    removeItem(index, fromFilters){
+        if(fromFilters){
+            this.kpiWithFilters.splice(index, 1);
+        } else { //fromKpiMaker  
+            let indexOfFilter = this.kpiWithFilters.findIndex(kpi => kpi.name === this.kpiInUse[index].name);
+            if(indexOfFilter !== -1){
+                this.kpiWithFilters.splice(indexOfFilter, 1);
+            }
+            this.kpiInUse.splice(index, 1);
+        }
     }
 
     checkFormula(formula): boolean {
@@ -358,6 +367,41 @@ export class DynamicCrudComponent implements OnInit {
         return alg;
     }
 
+    getWhereConditions(): string {
+        let conditions = '    '; 
+        this.kpiWithFilters.forEach(el => {
+            if(el.hasOwnProperty('filters') && el.filters.hasOwnProperty('byValue')) conditions += '"' + el.label + ' ' + el.filters.byValue + '", ';
+        })
+        conditions = conditions.slice(0, -2);
+        
+        return conditions;
+    }
+    
+    getGroupByConditions(): string {
+        let conditions = '    '; 
+        this.kpiWithFilters.forEach(el => {
+            if(el.hasOwnProperty('filters') && el.filters.hasOwnProperty('groupBy')) conditions += '"' + el.label +  '", ';
+        })
+        conditions = conditions.slice(0, -2);
+    
+        return conditions;
+    }
+
+    checkCond(filter : string): boolean{
+
+        let aux = this.kpiWithFilters.filter(el => el.filters);
+        if(aux.length){
+            aux = aux.filter(el => el.filters.hasOwnProperty(filter))
+        }
+        return aux.length !== 0;
+        /*let index = -1;
+        if(this.kpiWithFilters.findIndex(el => el.hasOwnProperty('filters')) !== -1){
+            console.log(filter, this.kpiWithFilters)
+            index = this.kpiWithFilters.findIndex(el => el.filters.hasOwnProperty(filter));
+        }
+        return index !== -1;*/
+    }
+
     getLabel(item): string {
         if(typeof item === 'string'){
             if(this.operators.includes(item)){
@@ -385,32 +429,60 @@ export class DynamicCrudComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(toAddFilter => {
             if(toAddFilter){
-                if(!this.kpiInUse[i].hasOwnProperty('filters')){
-                    this.kpiInUse[i].filters = {
+                if(!this.kpiWithFilters[i].hasOwnProperty('filters')){
+                    this.kpiWithFilters[i].filters = {
                         byValue: ''
                     };
                 }
-                this.kpiInUse[i].filters.byValue = toAddFilter.value;
+                this.kpiWithFilters[i].filters.byValue = toAddFilter.value;
             }
         });
     }
 
-    getNumberOfBadges(item){
+    openFilterGroupByModal(item, i): void {
+        
+        const dialogRef = this.dialog.open(FilterGroupByDialogComponent, {
+            width: '500px',
+            height: 'fit-content',
+            data: item
+        });
+
+        dialogRef.afterClosed().subscribe(toAddFilter => {
+            if(toAddFilter){
+                if(!this.kpiWithFilters[i].hasOwnProperty('filters')){
+                    this.kpiWithFilters[i].filters = {
+                        groupBy: ''
+                    };
+                }
+                this.kpiWithFilters[i].filters.groupBy = toAddFilter.value;
+            }
+        });
+    }
+
+    getNumberOfBadges(item, filter){
         let n: any = 0;
         if(item.hasOwnProperty('filters')){
-            n = Object.keys(item.filters);
-            n = n.length;
+            if(item.filters.hasOwnProperty(filter)){
+                n = 1;
+            }
         }
         return n;
     }
 
-    getHiddenBadge(item){
+    getHiddenBadge(item, filter){
         if(item.hasOwnProperty('filters')){
-            if(item.filters.hasOwnProperty('byValue')){
-                if(item.filters.byValue !== '') return false;
+            if(item.filters.hasOwnProperty(filter)){
+                if(item.filters[filter] !== '') return false;
             }
         }
         return true;
-       //return !item.hasOwnProperty('filters');
     }
+
+    filterAlreadyPresent(item): boolean{
+        return !this.kpiWithFilters.some(el => el.name === item.name);
+    }
+
+    hideTooltipIn(tooltip : MatTooltip, ms : number){
+        setTimeout(() => tooltip.hide(), ms);
+      }
 }

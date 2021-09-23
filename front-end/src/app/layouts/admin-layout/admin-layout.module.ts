@@ -24,9 +24,11 @@ import { SaveDialogComponent } from 'app/dynamic-crud/components/save-dialog/sav
 import { SaveTresholdDialogComponent } from 'app/dynamic-crud/components/save-treshold-dialog/save-treshold-dialog.component';
 import { DeleteDialogComponent } from 'app/dynamic-crud/components/delete-dialog/delete-dialog.component';
 import { FilterDialogComponent } from 'app/dynamic-crud/components/filter-dialog/filter-dialog.component';
+import { FilterGroupByDialogComponent } from 'app/dynamic-crud/components/filter-groupBy-dialog/filter-groupBy-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -41,6 +43,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatSelectModule,
     MatTooltipModule,
     MatDividerModule,
+    MatSlideToggleModule,
     MatDialogModule,
     MatBadgeModule,
     DragDropModule,
@@ -59,7 +62,8 @@ import {MatDividerModule} from '@angular/material/divider';
     SaveDialogComponent,
     SaveTresholdDialogComponent,
     DeleteDialogComponent,
-    FilterDialogComponent
+    FilterDialogComponent,
+    FilterGroupByDialogComponent
   ],
   entryComponents: [SaveDialogComponent, SaveTresholdDialogComponent]
 })

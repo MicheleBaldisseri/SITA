@@ -10,33 +10,36 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="d-flex">
-                                <mat-form-field >
-                                    <input matInput placeholder="Put your constant" [(ngModel)]="constant">
-                                </mat-form-field>
-                                <button mat-raised-button type="button" class="btn btn-info btn-round btn-just-icon"
-                                (click)="kpiInUse.push(constant)">
-                                    <i class="material-icons">add</i>
-                                    <div class="ripple-container"></div>
-                                </button>
-                             </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex" style="padding-right: 20px;">
+                                    <mat-form-field >
+                                        <input matInput placeholder="Put your constant" [(ngModel)]="constant">
+                                    </mat-form-field>
+                                    <button mat-raised-button type="button" class="btn btn-info btn-round btn-just-icon"
+                                    (click)="kpiInUse.push(constant)">
+                                        <i class="material-icons">add</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
                             
-                            <div cdkDropList 
-                                cdkDropListOrientation="horizontal" 
-                                cdkDropListSortingDisabled
-                                [cdkDropListData]="operators"
-                                class="example-list-horizontal" 
-                                (cdkDropListDropped)="drop($event, true)"
-                            >
-                                <div 
-                                    class="example-box-horizontal" 
-                                    *ngFor="let item of operators; let i = index" 
-                                    cdkDrag 
-                                    [matTooltip]="operatorsName[i]"
-                                    (cdkDragStarted)="dragStart()"
-                                    (cdkDragEnded)="dragEnd()"
+                                <div cdkDropList 
+                                    cdkDropListOrientation="horizontal" 
+                                    cdkDropListSortingDisabled
+                                    [cdkDropListData]="operators"
+                                    class="example-list-horizontal" 
+                                    (cdkDropListDropped)="drop($event, true)"
+                                    style="width: 100%;"
                                 >
-                                    <p id="operators">{{item}}</p>
+                                    <div 
+                                        class="example-box-horizontal" 
+                                        *ngFor="let item of operators; let i = index" 
+                                        cdkDrag 
+                                        [matTooltip]="operatorsName[i]"
+                                        (cdkDragStarted)="dragStart()"
+                                        (cdkDragEnded)="dragEnd()"
+                                    >
+                                        <p id="operators">{{item}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -117,112 +120,143 @@
                                     <i class="material-icons">cleaning_services</i>
                                 </button>
                         </div>
-                        <div class="card-body" style="position: relative; padding-top: 0;">
-                            <div
-                                id="kpi-maker-input"
-                                cdkDropList
-                                [cdkDropListData]="kpiInUse" 
-                                class="example-list" 
-                                style="min-height: 300px !important;"
-                                (cdkDropListDropped)="drop($event)">
-
-                                <p id="drag-here" *ngIf="kpiInUse.length === 0">Drop something here</p>
-                                
-                                <div 
-                                    class="example-box" 
-                                    *ngFor="let item of kpiInUse; let i = index" 
-                                    [ngClass]="operators.includes(item) ? 'isOperator' : isKpi(item) ? 'isKpi' : 'isBe'" 
-                                    cdkDrag [matTooltip]="getLabel(item)">
+                        
+                        <div class="d-flex" style="padding-right: 20px;">
+                            <div class="card-body" style="position: relative; padding-top: 0;">
+                                <div
+                                    id="kpi-maker-input"
+                                    cdkDropList
+                                    [cdkDropListData]="kpiInUse" 
+                                    class="example-list" 
+                                    style="min-height: 300px !important;"
+                                    (cdkDropListDropped)="drop($event)">
+    
+                                    <p id="drag-here" *ngIf="kpiInUse.length === 0">Drop something here</p>
                                     
-                                    <p>{{getLabelMaker(item)}}</p>
+                                    <div 
+                                        class="example-box" 
+                                        *ngFor="let item of kpiInUse; let i = index" 
+                                        [ngClass]="operators.includes(item) ? 'isOperator' : isKpi(item) ? 'isKpi' : 'isBe'" 
+                                        cdkDrag
+                                        #actionInfoTooltip="matTooltip" 
+                                        (mouseenter)="hideTooltipIn(actionInfoTooltip, 1000)"
+                                        [matTooltip]="getLabel(item)"
+                                    >
+                                        
+                                        <p>{{getLabelMaker(item)}}</p>
 
-                                    <div>
-                                        <button 
-                                            mat-raised-button 
-                                            type="button"
-                                            class="btn btn-info btn-round btn-just-icon" 
-                                            placement="left"
-                                            [ngbPopover]="popContent"
-                                            popoverTitle="Add filters"
-                                        >
-                                         <i class="material-icons">filter_list</i>
-                                        </button>
-
-                                        <ng-template #popContent>
+                                        <div>
                                             <button 
-                                                    mat-raised-button 
-                                                    color="primary"
-                                                    [matBadge]="getNumberOfBadges(item)" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "getHiddenBadge(item)"
-                                                    (click)="openFilterModal(item, i)"
-                                                    style="padding: 0;"
+                                                *ngIf="filterAlreadyPresent(item) && !operators.includes(item)"
+                                                mat-raised-button 
+                                                matTooltip="Add conditions to this element"
+                                                type="button" 
+                                                class="btn btn-success btn-round btn-just-icon"
+                                                (click)="kpiWithFilters.push(item)"
                                             >
-                                                    By value
+                                                <i class="material-icons">arrow_forward</i>
                                             </button>
-                                            <!--
-                                            <div class="d-flex justify-content-between" style="width: 150px;">
-                                                <button 
-                                                    mat-raised-button 
-                                                    color="primary"
-                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
-                                                    (click)="openFilterModal(item)"
-                                                    style="padding: 0;"
-                                                >
-                                                    By value
-                                                </button>
-                                                <button 
-                                                    mat-raised-button 
-                                                    color="primary"
-                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
-                                                    (click)="openFilterModal(item)"
-                                                    style="padding: 0;"
-                                                >
-                                                    By value
-                                                </button>
-                                            </div>
-                                            <div class="d-flex justify-content-between" style="margin-top: 20px;">
-                                                <button 
-                                                    mat-raised-button 
-                                                    color="primary"
-                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
-                                                    (click)="openFilterModal(item)"
-                                                    style="padding: 0;"
-                                                >
-                                                    By value
-                                                </button>
-                                                <button 
-                                                    mat-raised-button 
-                                                    color="primary"
-                                                    [matBadge]="item.filters" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "item.filters === 0 ? true : false"
-                                                    (click)="openFilterModal(item)"
-                                                    style="padding: 0;"
-                                                >
-                                                    By value
-                                                </button>
-                                            </div>
-                                            -->
-                                        </ng-template>
-                                        
-                                        
-                                        <button 
-                                            mat-raised-button 
-                                            type="button" 
-                                            class="btn btn-danger btn-round btn-just-icon"
-                                            (click)="removeItem(i)"
-                                        >
-                                            <i class="material-icons">close</i>
-                                            <div class="ripple-container"></div>
-                                        </button>
+                                            <button 
+                                                mat-raised-button 
+                                                type="button" 
+                                                class="btn btn-danger btn-round btn-just-icon"
+                                                (click)="removeItem(i)"
+                                            >
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="width: 40%;">
+                                <b>Conditions:</b>
+                                <div class="example-list scrollable" style="min-height: 275px;" cdkDropList [cdkDropListData]="kpiWithFilters" (cdkDropListDropped)="drop($event)">
+                                    
+                                    <p id="drag-here" *ngIf="kpiWithFilters.length === 0">Drop something here</p>
+
+                                    <div 
+                                        class="example-box" 
+                                        *ngFor="let item of kpiWithFilters; let k = index" 
+                                        [ngClass]="isKpi(item) ? 'isKpi' : 'isBe'"
+                                        cdkDrag 
+                                        cdkDragDisabled = "true"
+                                        [matTooltip]="getLabel(item)"
+                                        (cdkDragStarted)="dragStart()"
+                                        (cdkDragEnded)="dragEnd()"
+                                    >
+                                        <p>{{item.label}}</p>
+                                        <div>
+                                            <button 
+                                                mat-raised-button 
+                                                type="button"
+                                                class="btn btn-info btn-round btn-just-icon" 
+                                                placement="left"
+                                                [ngbPopover]="popContent"
+                                                popoverTitle="Add filters"
+                                            >
+                                             <i class="material-icons">filter_list</i>
+                                            </button>
+    
+                                            <ng-template #popContent>
+                                                <div class="d-flex justify-content-between" style="width: 140px;">
+                                                    <button 
+                                                        mat-raised-button 
+                                                        color="primary"
+                                                        [matBadge]="getNumberOfBadges(item,'byValue')" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "getHiddenBadge(item, 'byValue')"
+                                                        (click)="openFilterModal(item, k)"
+                                                        style="padding: 0;"
+                                                    >
+                                                            By value
+                                                    </button>
+                                                    <button 
+                                                            mat-raised-button 
+                                                            color="primary"
+                                                            [matBadge]="getNumberOfBadges(item,'groupBy')" matBadgePosition="before" matBadgeColor="accent" [matBadgeHidden] = "getHiddenBadge(item, 'groupBy')"
+                                                            (click)="openFilterGroupByModal(item, k)"
+                                                            style="padding: 0;"
+                                                    >
+                                                            Group by
+                                                    </button>
+                                                </div>
+                                            </ng-template>
+                                            
+                                            
+                                            <button 
+                                                mat-raised-button 
+                                                type="button" 
+                                                class="btn btn-danger btn-round btn-just-icon"
+                                                (click)="removeItem(k, true)"
+                                            >
+                                                <i class="material-icons">close</i>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-body">
+                            <!--ALGORITHM-->
                             <p>
                                 <b>Algorithm: [</b> 
-                                    <strong *ngIf="kpiInUse.length == 0">Formula that you are creating</strong>
-                                    {{getAlg()}} 
+                                <strong *ngIf="kpiInUse.length == 0">Formula that you are creating</strong>
+                                {{getAlg()}} 
                                 <b>]</b>
                             </p>
+                            <!--WHERE-->
+                            <div *ngIf="checkCond('byValue')">
+                                <b>WHERE: [</b>
+                                    {{getWhereConditions()}}
+                                <b>]</b>
+                            </div>
+                             <!--GROUP BY-->
+                             <div *ngIf="checkCond('groupBy')">
+                                <b>GROUP BY: [</b>
+                                    {{getGroupByConditions()}}
+                                <b>]</b>
+                            </div>
                             <div>
                                 <button mat-raised-button type="button" matTooltip="Save" *ngIf="isAdmin && kpiInUse.length > 0" class="btn btn-info btn-round btn-just-icon" (click)="save()">
                                     <i class="material-icons">save</i>

@@ -1,0 +1,38 @@
+<div class="card" style="box-shadow: none; margin-bottom: 0;">
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Filter by value</h4>
+    </div>
+
+    <p style="margin-top: 20px;"><b>Label:</b> {{data.label}}</p>
+
+    <mat-slide-toggle color="primary" [(ngModel)]="isChecked">Group by</mat-slide-toggle>
+    
+    <div *ngIf="data.hasOwnProperty('filters') && data.filters.hasOwnProperty('groupBy') && data.filters.groupBy !== ''" >
+        <mat-divider></mat-divider>
+        <div class="d-flex" style="margin-top: 10px">
+            <b style="padding-right: 8px;">Previously inserted filter:</b>
+            <p>{{data.filters.groupBy}}</p>
+
+            <button id="removeFilter" (click)="removeFilter()">x</button>
+        </div>
+    </div>
+    
+    <div style="text-align: right;">
+        <button 
+            mat-raised-button type="button" 
+            class="btn btn-danger btn-round"
+            (click)="refuse()"
+        >
+            Abort
+        </button>
+        <button 
+            mat-raised-button type="button" 
+            class="btn btn-success btn-round" 
+            cdkFocusInitial
+            (click)="confirm()"
+        >
+            Confirm
+        </button>
+    </div>
+</div>
+

@@ -125,14 +125,14 @@
     justify-content: center;
     box-sizing: border-box;
     cursor: move;
-    background-color: #78b0f01e;
+    background-color: #78b0f031;
     font-size: 14px;
     flex-grow: 1;
     flex-basis: 0;
   }
 
   #operators{
-      font-size: 2em;
+      font-size: 1.5em;
       margin-bottom: 0;
       padding: 10px 15px 10px 15px;
       border-radius: 10px;
@@ -144,7 +144,7 @@
   }
 
   .isOperator{
-    background-color: #78b0f00e !important;
+    background-color: #78b0f031 !important;
   }
 
   .isElement{
@@ -152,11 +152,11 @@
   }
 
   .isKpi{
-    background-color: #ffecc271;
+    background-color: #ffd3105b;
   }
 
   .isBe{
-    background-color: #ffd2ae71;
+    background-color: #ffd2ae7e;
   }
 
   #filter{
@@ -200,8 +200,4 @@
 
  ::ng-deep.mat-dialog-container {
   overflow: hidden;
-}
-
-#kpi-buttons button{
-
 }
